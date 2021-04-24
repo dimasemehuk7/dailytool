@@ -27,4 +27,4 @@
 [ ] C_010 Выделить шапку в отдельный компонент header.component
 [ ] C_011 Создать компоненты calendar-page.component и day-details-page.component в нутри них спользовать
           компоненты day-details.component, calendar.component, header.component соответственно
-[ ] C_012
+[ ] C_012 Настрокить url routing
