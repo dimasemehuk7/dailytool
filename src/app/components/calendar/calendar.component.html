@@ -1,0 +1,20 @@
+<div class="container">
+
+  <!-- header.component -->
+  <div class="current-date">
+    <div class="current-date__month">FEB</div>
+    <div class="current-date__day">19</div>
+    <div class="current-date__year">2021</div>
+  </div>
+
+  <!-- calendar.component -->
+  <div *ngIf="loaded" class="calendar">
+    <div *ngFor="let week of weeks" class="calendar__week">
+      <div *ngFor="let day of week" class="calendar__day">
+        <span *ngIf="!getTask(day)">{{day.getDate()}}</span>
+        <app-calendar-task *ngIf="getTask(day)" [task]="getTask(day)"></app-calendar-task>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,30 @@
+[+] C_001 Настроить стили
+[+] C_002 Подключить bootstrap и иконки
+[ ] C_003 Настройка CI
+[+] C_004 Шапка для страницы с календарем. В шапке отобразим текущий месяц/число/год
+[+] C_005 Сетка для календаря
+[+] C_006 Настроить JSON-Server
+[+] C_007 Создать список задач (task) в JSON-Server и создать task-rest.service.ts, который
+          бует делать к серверу и возвращать задачи у которых поле main === true
+          (GET tasks?main=true) (задачи только за текущий месяц)
+[+] C_008 Получить задачи и записать из в переменную, которая будет хранить список задач в TaskService
+    (TaskService -> TaskRestService -> записываем полученный задачи в Observable)
+    [
+      {id: 1, title: 'Abcd', date: {01.04.2021}, .... status: TaskStatus},
+      {id: 2, title: 'Abcd', date: {03.04.2021}, .... status: TaskStatus},
+      {id: 3, title: 'Abcd', date: {05.04.2021}, .... status: TaskStatus},
+      {id: 4, title: 'Abcd', date: {07.04.2021}, .... status: TaskStatus},
+      {id: 5, title: 'Abcd', date: {09.04.2021}, .... status: TaskStatus},
+      {id: 6, title: 'Abcd', date: {10.04.2021}, .... status: TaskStatus},
+      {id: 7, title: 'Abcd', date: {12.04.2021}, .... status: TaskStatus},
+    ]
+[+] C_009 Вывети задачи в календарь
+    [
+      [{29.03.2021}, {30.03.2021}, {31.03.2021}, {01.04.2021} ...  {04.04.2021}],
+      ....
+    ]
+
+[ ] C_010 Выделить шапку в отдельный компонент header.component
+[ ] C_011 Создать компоненты calendar-page.component и day-details-page.component в нутри них спользовать
+          компоненты day-details.component, calendar.component, header.component соответственно
+[ ] C_012

@@ -1,0 +1,10 @@
+<div class="calendar-task">
+  <div class="calendar-task__header">
+    <h3>{{dateNumber}}</h3>
+    <i class="calendar-task__status-icon bi " [ngClass]="{
+      'bi-check-circle': !this.task.status,
+      'bi-check-circle-fill': this.task.status
+    }"></i>
+  </div>
+  <div class="calendar-task__title">{{this.task.title}}</div>
+</div>
