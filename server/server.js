@@ -1,44 +1,53 @@
-const jsonServer = require('json-server');
-const low = require('lowdb');
-const path = require('path');
-const server = jsonServer.create();
-const router = jsonServer.router(path.join(__dirname, 'db', 'db.json'));
-const FileSync = require('lowdb/adapters/FileSync')
-const middlewares = jsonServer.defaults();
+const dbConfig = require('./config/db');
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const Task = require('./models/task');
+const app = express();
+const port = 3010;
 
-const adapter = new FileSync(path.join(__dirname, 'db', 'db.json'));
-const db = low(adapter)
+app.use(bodyParser.json({type: 'application/json'}));
 
-// Set default middlewares (logger, static, cors and no-cache)
-server.use(middlewares)
+mongoose.connect(dbConfig.uri, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connection.on('error', () => {
+  console.error('connection error:');
+});
 
-server.use(jsonServer.rewriter({
-  '/api/*': '/$1',
-}))
+mongoose.connection.once('open', function () {
+  app.get('/api/tasks', (req, res) => {
+    const fromDate = new Date(req.query.from);
+    const toDate = new Date(req.query.to);
+    const queryParams = {
+      timeStart: {$gte: fromDate},
+      timeEnd: {$lte: toDate}
+    };
+    if (req.query.main) {
+      queryParams.main = req.query.main === 'true';
+    }
+    toDate.setHours(23, 59, 59, 999);
+    Task.find(queryParams).then(tasks => {
+      res.json(tasks);
+    });
+  });
 
-// Add custom routes before JSON Server router
-server.get('/calendar/:date', (req, res) => {
-  console.log('req.params', req.params);
-  console.log('data', router.db.get('tasks'));
-  console.log('db', db.get('tasks'));
-  // res.jsonp(req.query)
-  const data = {};
-  res.send(data)
-})
+  app.post('/api/tasks', (req, res) => {
+    const newTask = new Task({
+      title: req.body.title,
+      main: req.body.main,
+      timeStart: new Date(req.body.timeStart),
+      timeEnd: new Date(req.body.timeEnd),
+      status: req.body.status
+    });
+    Task.create(newTask, function (err, task) {
+      if (err) {
+        return console.error(err);
+      }
+      res.json(task);
+    });
+  });
 
-// To handle POST, PUT and PATCH you need to use a body-parser
-// You can use the one used by JSON Server
-server.use(jsonServer.bodyParser)
-server.use((req, res, next) => {
-  if (req.method === 'POST') {
-    req.body.createdAt = Date.now()
-  }
-  // Continue to JSON Server router
-  next()
-})
+  app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`)
+  });
+});
 
-// Use default router
-server.use(router)
-server.listen(3000, () => {
-  console.log('JSON Server is running')
-})

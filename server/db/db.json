@@ -4,19 +4,10 @@
       "id": "1",
       "title": "dads",
       "main": true,
-      "date": "2021-04-10T00:00:00.000Z",
+      "date": "2021-05-10T00:00:00.000Z",
       "timeStart": "08:30",
       "timeEnd": "11:00",
       "status": "COMPLETED"
-    },
-    {
-      "id": "2",
-      "title": "daddss",
-      "main": true,
-      "date": "2021-04-11T00:00:00.000Z",
-      "timeStart": "08:00",
-      "timeEnd": "11:30",
-      "status": "NOT_STARTED"
     }
   ]
 }

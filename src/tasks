@@ -18,13 +18,15 @@
       {id: 6, title: 'Abcd', date: {10.04.2021}, .... status: TaskStatus},
       {id: 7, title: 'Abcd', date: {12.04.2021}, .... status: TaskStatus},
     ]
+
 [+] C_009 Вывети задачи в календарь
     [
       [{29.03.2021}, {30.03.2021}, {31.03.2021}, {01.04.2021} ...  {04.04.2021}],
       ....
     ]
 
-[ ] C_010 Выделить шапку в отдельный компонент header.component
-[ ] C_011 Создать компоненты calendar-page.component и day-details-page.component в нутри них спользовать
+[+] C_010 Выделить шапку в отдельный компонент header.component
+[+] C_011 Создать компоненты calendar-page.component и day-details-page.component в нутри них спользовать
           компоненты day-details.component, calendar.component, header.component соответственно
 [ ] C_012 Настрокить url routing
+[+] C_013 Настройка рутинга на сервере

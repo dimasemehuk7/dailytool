@@ -1,0 +1,34 @@
+@import "abstracts/colors";
+@import "abstracts/variables";
+
+.current-date {
+  width: 100%;
+  border-bottom-left-radius: $border-radius-base;
+  border-bottom-right-radius: $border-radius-base;
+  height: 80px;
+  background-color: $color-primary;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__month {
+    font-size: 20px;
+    color: $color-neutral;
+    font-weight: bold;
+    margin-right: 15px;
+  }
+
+  &__day {
+    font-size: 30px;
+    color: $color-neutral;
+    font-weight: bold;
+    margin-right: 15px;
+  }
+
+  &__year {
+    font-weight: bold;
+    font-size: 20px;
+    color: $color-neutral;
+    margin-right: 15px;
+  }
+}

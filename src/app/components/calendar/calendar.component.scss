@@ -10,49 +10,28 @@ $gap: 20px;
   flex-direction: column;
 
   &__week {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
     gap: $gap;
-    margin-bottom: $gap;
+    grid-template-areas:
+    ". . . . . . .";
+    margin-bottom: 20px;
   }
 
   &__day {
-    border: 1px solid black;
+    border-radius: 10px;
+    border: 1px solid $color-primary;
     flex-grow: 1;
     min-height: 30px;
     line-height: 30px;
     text-align: center;
     position: relative;
-  }
-}
-
-.current-date {
-  width: 100%;
-  border-bottom-left-radius: $border-radius-base;
-  border-bottom-right-radius: $border-radius-base;
-  height: 80px;
-  background-color: #3d8af7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &__month {
-    font-size: 20px;
-    color: #fff;
-    font-weight: bold;
-    margin-right: 15px;
+    cursor: pointer;
   }
 
-  &__day {
-    font-size: 30px;
-    color: #fff;
-    font-weight: bold;
-    margin-right: 15px;
-  }
-
-  &__year {
-    font-weight: bold;
-    font-size: 20px;
-    color: #fff;
-    margin-right: 15px;
+  app-calendar-task {
+    border-radius: 10px;
+    z-index: 200;
   }
 }

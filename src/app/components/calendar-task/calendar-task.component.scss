@@ -1,12 +1,16 @@
+@import "abstracts/colors";
+
 :host {
   display: block;
   height: 100px;
-  background-color: #3d8af7;
+  background-color: $color-primary;
   padding: 10px;
 }
 
 .calendar-task {
-  color: white;
+  color: $color-neutral;
+  width: 100%;
+  height: 100%;
 
   &__status-icon {
     font-size: 15px;
@@ -27,7 +31,7 @@
   }
 
   &__title {
-    color: white;
+    color: $color-neutral;
     font-size: 10px;
     text-align: left;
   }

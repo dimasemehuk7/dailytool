@@ -1,5 +1,6 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {ITask} from '../../models/task';
+import {NavigationService} from '../../services/navigation.service';
 
 @Component({
   selector: 'app-calendar-task',
@@ -7,17 +8,20 @@ import {ITask} from '../../models/task';
   styleUrls: ['calendar-task.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CalendarTaskComponent implements OnInit {
+export class CalendarTaskComponent {
+
+  constructor(private navigationService: NavigationService) {}
 
   @Input() task: ITask;
 
-  constructor() {
-    console.log(this.task);
-  }
-
   get dateNumber(): string {
-    return `${this.task.date.getDate()}`.padStart(2, '0');
+    const startTimestamp = new Date(this.task.timeStart);
+    return `${startTimestamp.getDate()}`.padStart(2, '0');
   }
 
-  ngOnInit(): void {}
+  onCalenderTaskClick(): void {
+    const isoDate = this.task.timeStart;
+    console.log(isoDate);
+    this.navigationService.goToDayDetails(isoDate.split('T')[0]);
+  }
 }

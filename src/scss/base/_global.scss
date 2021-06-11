@@ -1,12 +1,14 @@
+@import "abstracts/variables";
+
 html {
   font-size: 10px;
 }
 
 body {
   font-family: 'Noto Sans', sans-serif;
+  font-weight: normal;
 }
 
 .container {
-  width: 1440px;
-  margin: 0 auto;
+  min-width: $screen-md;
 }

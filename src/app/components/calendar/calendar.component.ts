@@ -5,8 +5,9 @@ import {DateUtils} from '../../utils/date.utils';
 import {CalendarUtils} from '../../utils/calendar.utils';
 
 @Component({
+  selector: 'app-calendar',
   templateUrl: 'calendar.component.html',
-  styleUrls: ['calendar.component.scss']
+  styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit {
 
@@ -16,32 +17,26 @@ export class CalendarComponent implements OnInit {
 
   constructor(private taskService: TaskService) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void{
     const now = DateUtils.now();
     this.weeks = CalendarUtils.getCalendarForMonth(now.getFullYear(), now.getMonth());
+    console.log('weeks', this.weeks);
+
     this.taskService.mainTasks$.subscribe((mainTasks: ITask[]) => {
-      // TODO Add collection utils
       if (mainTasks) {
         this.loaded = true;
         this.tasks = mainTasks;
       }
     });
+    this.taskService.getMain$().subscribe();
   }
 
-  getTask(date: Date): ITask {
+  getTaskByDate(date: Date): ITask {
     return this.tasks.find(task => {
-      return task.date.getFullYear() === date.getFullYear()
-        && task.date.getMonth() === date.getMonth()
-        && task.date.getDate() === date.getDate();
+      const timeStart = new Date(task.timeStart);
+      return timeStart.getFullYear() === date.getFullYear()
+        && timeStart.getMonth() === date.getMonth() - 1
+        && timeStart.getDate() === date.getDate();
     });
-    // return {
-    //   id: '3',
-    //   date: new Date('23-01-2021'),
-    //   main: true,
-    //   status: TaskStatus.COMPLETED,
-    //   timeEnd: '10:00',
-    //   timeStart: '07:00',
-    //   title: 'ABCD'
-    // };
   }
 }
