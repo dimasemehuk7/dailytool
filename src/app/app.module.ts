@@ -12,6 +12,8 @@ import {CalendarComponent} from './components/calendar/calendar.component';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {TaskModalComponent} from './modals/task/task-modal.component';
+import {TimepickerModule} from 'ngx-bootstrap/timepicker';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -19,7 +21,9 @@ import {TaskModalComponent} from './modals/task/task-modal.component';
     AppRoutingModule,
     HttpClientModule,
     NoopAnimationsModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    TimepickerModule.forRoot(),
+    FormsModule
   ],
   declarations: [
     AppComponent,

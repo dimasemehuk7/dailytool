@@ -1,10 +1,9 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-day-page-details',
   templateUrl: 'day-details-page.component.html',
-  styleUrls: ['day-details-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['day-details-page.component.scss']
 })
 export class DayDetailsPageComponent implements OnInit {
 

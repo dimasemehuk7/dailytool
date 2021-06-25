@@ -21,7 +21,7 @@ export class CalendarUtils {
   }
 
   static getCalendarPeriodForMonth(year: number, month: number): DatePeriod {
-    const firstDateOfMonth = new Date(year, month);
+    const firstDateOfMonth = new Date(year, month - 1);
     const firstDateOfMonthDay = firstDateOfMonth.getDay();
     const firstDateOfMonthOffset = firstDateOfMonthDay === 0 ? 6 : firstDateOfMonthDay - 1;
     const startDate = DateUtils.subDays(firstDateOfMonth, firstDateOfMonthOffset);

@@ -1,6 +1,6 @@
 import {TaskStatus} from './task-status';
 
-export interface ITask {
+export interface Task {
   id?: string;
   title: string;
   main: boolean;

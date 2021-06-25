@@ -31,6 +31,7 @@ mongoose.connection.once('open', function () {
   });
 
   app.post('/api/tasks', (req, res) => {
+    console.log(req.body)
     const newTask = new Task({
       title: req.body.title,
       main: req.body.main,

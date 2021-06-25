@@ -1,43 +1,40 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, of} from 'rxjs';
-import {ITask} from '../models/task';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {Task} from '../models/task';
 import {TaskRestService} from '../rest/task-rest.service';
 import {CalendarUtils} from '../utils/calendar.utils';
 import {DatePeriod} from '../models/date-period';
 import {tap} from 'rxjs/operators';
-import {ActivatedRoute} from '@angular/router';
 import {NavigationService} from './navigation.service';
-import {log} from 'util';
+import {YearAndMonth} from '../models/year-and-month';
 
 @Injectable({providedIn: 'root'})
 export class TaskService {
 
-  private mainTasksSubject$: BehaviorSubject<ITask[]>;
-  private tasksSubject$: BehaviorSubject<ITask[]>;
-  public mainTasks$: Observable<ITask[]>;
-  public tasks$: Observable<ITask[]>;
+  private mainTasksSubject$: BehaviorSubject<Task[]>;
+  private tasksSubject$: BehaviorSubject<Task[]>;
+  public mainTasks$: Observable<Task[]>;
+  public tasks$: Observable<Task[]>;
 
   constructor(private taskRestService: TaskRestService,
               private navigationService: NavigationService) {
-    this.mainTasksSubject$ = new BehaviorSubject<ITask[]>(null);
-    this.tasksSubject$ = new BehaviorSubject<ITask[]>(null);
+    this.mainTasksSubject$ = new BehaviorSubject<Task[]>([]);
+    this.tasksSubject$ = new BehaviorSubject<Task[]>([]);
     this.mainTasks$ = this.mainTasksSubject$.asObservable();
-    this.tasks$ = this.mainTasksSubject$.asObservable();
+    this.tasks$ = this.tasksSubject$.asObservable();
   }
 
-  getMain$(): Observable<ITask[]> {
-    const yearAndMonth =  this.navigationService.getUrlParam('year-and-month');
-    const year = Number(yearAndMonth.split('-')[0]);
-    const month = Number(yearAndMonth.split('-')[1]);
-    const period: DatePeriod = CalendarUtils.getCalendarPeriodForMonth(year, month - 1);
-    return this.taskRestService.getMain$(period).pipe(tap((mainTasks: ITask[]) => {
-        this.mainTasksSubject$.next(mainTasks);
+  getMain$(): Observable<Task[]> {
+    const yearAndMonth: YearAndMonth = this.navigationService.getPeriodFromYearAndMonthParam();
+    const period: DatePeriod = CalendarUtils.getCalendarPeriodForMonth(yearAndMonth.year, yearAndMonth.month);
+    return this.taskRestService.getMain$(period).pipe(tap((mainTasks: Task[]) => {
+      this.mainTasksSubject$.next(mainTasks);
     }));
   }
 
-  getForDate$(date: Date): Observable<ITask[]> {
+  getAllTasksForDate$(date: Date): Observable<Task[]> {
     const period: DatePeriod = {from: date, to: date};
-    return this.taskRestService.getAll$(period).pipe(tap((tasks: ITask[]) => {
+    return this.taskRestService.getAll$(period).pipe(tap((tasks: Task[]) => {
       this.tasksSubject$.next(tasks);
     }));
   }

@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {ITask} from '../../models/task';
+import {Task} from '../../models/task';
 import {NavigationService} from '../../services/navigation.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class CalendarTaskComponent {
 
   constructor(private navigationService: NavigationService) {}
 
-  @Input() task: ITask;
+  @Input() task: Task;
 
   get dateNumber(): string {
     const startTimestamp = new Date(this.task.timeStart);

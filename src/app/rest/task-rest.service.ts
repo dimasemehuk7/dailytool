@@ -1,27 +1,33 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {ITask} from '../models/task';
+import {Observable, of} from 'rxjs';
+import {Task} from '../models/task';
 import {DatePeriod} from '../models/date-period';
 import {UrlConstants} from '../constants/url.constants';
+import {DateUtils} from '../utils/date.utils';
+import {CreateTaskData} from '../models/create-task-data';
 
 @Injectable({providedIn: 'root'})
 export class TaskRestService {
 
   constructor(private http: HttpClient) {}
 
-  getMain$(period: DatePeriod): Observable<ITask[]> {
+  getMain$(period: DatePeriod): Observable<Task[]> {
     const params = new HttpParams()
-      .set('from', period.from.toISOString().slice(0, 10))
-      .set('to', period.to.toISOString().slice(0, 10))
+      .set('from', DateUtils.format(period.from))
+      .set('to', DateUtils.format(period.to))
       .set('main', 'true');
-    return this.http.get<ITask[]>(`${UrlConstants.API}/tasks`, {params});
+    return this.http.get<Task[]>(`${UrlConstants.API}/tasks`, {params});
   }
 
-  getAll$(period: DatePeriod): Observable<ITask[]> {
+  getAll$(period: DatePeriod): Observable<Task[]> {
     const params = new HttpParams()
-      .set('from', period.from.toISOString().slice(0, 10))
-      .set('to', period.to.toISOString().slice(0, 10));
-    return this.http.get<ITask[]>(`${UrlConstants.API}/tasks`, {params})
+      .set('from', DateUtils.format(period.from))
+      .set('to', DateUtils.format(period.to));
+    return this.http.get<Task[]>(`${UrlConstants.API}/tasks`, {params});
+  }
+
+  create$(taskData: CreateTaskData): Observable<Task> {
+    return this.http.post<Task>(`${UrlConstants.API}/tasks`, taskData);
   }
 }

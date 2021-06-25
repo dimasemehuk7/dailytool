@@ -1,4 +1,6 @@
 import {startOfMonth as _startOfMonth, subDays as _subDays, addDays as _addDay, isEqual as _isEqual} from 'date-fns';
+import {DateFormat} from '../models/date-format';
+import _format from 'date-fns/format';
 
 export class DateUtils {
 
@@ -20,5 +22,12 @@ export class DateUtils {
 
   static isEqual(firstDate: Date, secondDate: Date): boolean {
     return _isEqual(firstDate, secondDate);
+  }
+
+  static format(date: Date, format: DateFormat = DateFormat.ISO_DATE): string {
+    if (date) {
+      return _format(date, format);
+    }
+    return null;
   }
 }

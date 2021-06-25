@@ -1,12 +1,13 @@
 <div>
   <div class="tasks-container">
-    <a routerLink="/calendar/{{date}}" class="calendar-link"><i class="bi bi-calendar4-week"></i></a>
+    <a routerLink="/calendar/{{date | date:'yyyy-MM'}}" class="calendar-link"><i class="bi bi-calendar4-week"></i></a>
     <button class="create" (click)="createTask()">
       <i class="bi bi-plus-circle-fill"></i>
     </button>
     <div class="task" *ngFor="let task of tasks">
       <div class="task-row">
-        <p class="task__start-time">{{generateString(task.timeStart)}}</p>
+        <p class="task__start-time">{{task.timeStart | date: 'HH:mm'}}</p>
+        <p class="task__end-time">{{task.timeEnd | date: 'HH:mm'}}</p>
         <div class="form-check">
           <input id="main-task-radio" class="form-check-input" type="radio" name="main-task">
           <label for="main-task-radio" class="form-check-label">Main</label>
@@ -16,7 +17,6 @@
           <label class="form-check-label" for="inlineCheckbox1">completed</label>
         </div>
         <i class="bi bi-trash-fill"></i>
-        <p class="task__end-time">{{generateString(task.timeEnd)}}</p>
       </div>
       <div class="task-row">
         <h3 class="task__title">{{task.title}}</h3>

@@ -1,5 +1,8 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, NavigationEnd, Params, Router, RouterStateSnapshot} from '@angular/router';
+import {DatePeriod} from '../models/date-period';
+import {CalendarUtils} from '../utils/calendar.utils';
+import {YearAndMonth} from '../models/year-and-month';
 
 @Injectable({providedIn: 'root'})
 export class NavigationService {
@@ -25,5 +28,13 @@ export class NavigationService {
 
   goToDayDetails(isoDate): void {
     this.router.navigate(['day-details', isoDate]);
+  }
+
+  getPeriodFromYearAndMonthParam(): YearAndMonth {
+    const yearAndMonth = this.getUrlParam('year-and-month');
+    return {
+      year: Number(yearAndMonth.split('-')[0]),
+      month: Number(yearAndMonth.split('-')[1])
+    };
   }
 }
