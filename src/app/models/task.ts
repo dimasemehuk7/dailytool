@@ -1,7 +1,7 @@
 import {TaskStatus} from './task-status';
 
 export interface Task {
-  id?: string;
+  _id?: string;
   title: string;
   main: boolean;
   timeStart: string;

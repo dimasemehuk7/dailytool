@@ -1,24 +1,31 @@
 <div class="modal-header">
   <h4 class="modal-title pull-left">{{title}}</h4>
-  <button type="button" class="close pull-right" aria-label="Close" (click)="doHide()">
+  <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
     <span aria-hidden="true">&times;</span>
   </button>
-</div>
+</div>`
 <div class="modal-body">
-  <input #taskTitleInput="ngModel" class="form-control" type="text" placeholder="title" [(ngModel)]="taskTitle" required>
-  <pre>{{taskTitleInput.control.errors | json}}</pre>
-  <div class="modal-body__time-start">
-    <p class="modal-body__start">Time Start: </p>
-    <timepicker #startTimePicker="ngModel" class="modal-body__time-picker" [(ngModel)]="taskStartTime" [showMeridian]="false"></timepicker>
-    <pre>{{startTimePicker.control.errors | json}}</pre>
-  </div>
-  <div class="modal-body__time-end">
-    <p class="modal-body__end">Time End: </p>
-    <timepicker #endTimePicker="ngModel" class="modal-body__time-picker" [(ngModel)]="taskEndTime" [showMeridian]="false"></timepicker>
-    <pre>{{endTimePicker.control.errors | json}}</pre>
-  </div>
+  <form [formGroup]="taskForm">
+    <label for="title">title</label>
+    <input class="form-control" id="title" type="text" placeholder="title" formControlName="title" required="required">
+    <div class="modal-body__time-start">
+      <p class="modal-body__start">Time Start:</p>
+      <timepicker class="modal-body__time-picker" formControlName="timeStart" id="timeStart"
+                  [showMeridian]="false" [max]="taskForm.controls.timeEnd.value"></timepicker>
+      <pre>Errors: {{taskForm.controls.timeStart.errors | json}}
+        <br>Value: {{taskForm.controls.timeStart.value | date:'dd-MM-yyyy HH:mm'}}</pre>
+    </div>
+    <div class="modal-body__time-end">
+      <p class="modal-body__end">Time End: </p>
+      <timepicker class="modal-body__time-picker" formControlName="timeEnd" id="timeEnd"
+                  [showMeridian]="false" [min]="taskForm.controls.timeStart.value"></timepicker>
+      <pre>Errors: {{taskForm.controls.timeEnd.errors | json}}
+        <br>Value: {{taskForm.controls.timeEnd.value | date:'dd-MM-yyyy HH:mm'}}</pre>
+    </div>
+  </form>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-default" (click)="doHide()">Cancel</button>
-  <button type="button" class="btn btn-primary" (click)="createTask()">Create</button>
+  <button type="button" class="btn btn-default" (click)="closeModal()">Cancel</button>
+  <button type="button" class="btn btn-primary" (click)="save()">Save</button>
 </div>
+

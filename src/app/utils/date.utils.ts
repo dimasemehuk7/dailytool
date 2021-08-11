@@ -3,7 +3,6 @@ import {DateFormat} from '../models/date-format';
 import _format from 'date-fns/format';
 
 export class DateUtils {
-
   static now(): Date {
     return new Date();
   }
@@ -29,5 +28,13 @@ export class DateUtils {
       return _format(date, format);
     }
     return null;
+  }
+
+  static getCurrentHours(): number {
+    return new Date().getHours();
+  }
+
+  static getCurrentMinutes(): number {
+    return new Date().getMinutes();
   }
 }

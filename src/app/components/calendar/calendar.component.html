@@ -1,6 +1,6 @@
 <div *ngIf="loaded" class="calendar">
   <div *ngFor="let week of weeks" class="calendar__week">
-    <div *ngFor="let day of week" class="calendar__day">
+    <div *ngFor="let day of week" class="calendar__day" (click)="onTaskClick(day)">
       <span *ngIf="!getTaskByDate(day)">{{day.getDate()}}</span>
       <app-calendar-task *ngIf="getTaskByDate(day)" [task]="getTaskByDate(day)"></app-calendar-task>
     </div>

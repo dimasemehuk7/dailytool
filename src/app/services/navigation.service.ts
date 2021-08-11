@@ -7,7 +7,7 @@ import {YearAndMonth} from '../models/year-and-month';
 @Injectable({providedIn: 'root'})
 export class NavigationService {
 
-  private params: Params;
+  public params: Params;
 
   constructor(private router: Router) {
     this.router.events.subscribe(event => {
@@ -36,5 +36,9 @@ export class NavigationService {
       year: Number(yearAndMonth.split('-')[0]),
       month: Number(yearAndMonth.split('-')[1])
     };
+  }
+
+  goToCalendarMonth(yearAndMonth: string): void {
+    this.router.navigate(['calendar', yearAndMonth]);
   }
 }

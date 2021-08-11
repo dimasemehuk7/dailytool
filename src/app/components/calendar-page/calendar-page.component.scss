@@ -1,0 +1,18 @@
+@import "abstracts/colors";
+@import "abstracts/variables";
+
+.arrow-left {
+  position: absolute;
+  left: 5px;
+  top: 65%;
+  color: $color-primary;
+  font-size: 40px;
+}
+
+.arrow-right {
+  position: absolute;
+  top: 65%;
+  right: 5px;
+  font-size: 40px;
+  color: $color-primary;
+}

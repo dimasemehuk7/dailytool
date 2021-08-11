@@ -1,5 +1,23 @@
 @import "abstracts/variables";
 
+* {
+  border: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --fg: #17181c;
+  --shade1: #727274;
+  --shade2: #cccdd1;
+  --shade3: #f3f4f8;
+  --shade4: #ffffff;
+  --dur1: 1s;
+  --dur2: 6s;
+  font-size: calc(16px + (32 - 16)*(100vw - 320px)/(2560 - 320));
+}
+
 html {
   font-size: 10px;
 }

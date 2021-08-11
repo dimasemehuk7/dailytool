@@ -6,6 +6,7 @@ import {DatePeriod} from '../models/date-period';
 import {UrlConstants} from '../constants/url.constants';
 import {DateUtils} from '../utils/date.utils';
 import {CreateTaskData} from '../models/create-task-data';
+import {UpdateTaskData} from '../models/update-task-data';
 
 @Injectable({providedIn: 'root'})
 export class TaskRestService {
@@ -28,6 +29,15 @@ export class TaskRestService {
   }
 
   create$(taskData: CreateTaskData): Observable<Task> {
+    console.log(taskData);
     return this.http.post<Task>(`${UrlConstants.API}/tasks`, taskData);
+  }
+
+  update$(taskData: UpdateTaskData): Observable<Task> {
+    return this.http.put<Task>(`${UrlConstants.API}/tasks/${taskData.id}`, taskData);
+  }
+
+  delete$(id: string): Observable<unknown> {
+    return this.http.delete<Task>(`${UrlConstants.API}/tasks/${id}`);
   }
 }

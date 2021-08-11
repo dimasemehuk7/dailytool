@@ -14,6 +14,8 @@ mongoose.connection.on('error', () => {
 });
 
 mongoose.connection.once('open', function () {
+
+  // GET
   app.get('/api/tasks', (req, res) => {
     const fromDate = new Date(req.query.from);
     const toDate = new Date(req.query.to);
@@ -30,8 +32,8 @@ mongoose.connection.once('open', function () {
     });
   });
 
+  // CREATE
   app.post('/api/tasks', (req, res) => {
-    console.log(req.body)
     const newTask = new Task({
       title: req.body.title,
       main: req.body.main,
@@ -41,9 +43,48 @@ mongoose.connection.once('open', function () {
     });
     Task.create(newTask, function (err, task) {
       if (err) {
-        return console.error(err);
+        res.status(503);
+        res.end();
+        return;
       }
       res.json(task);
+    });
+  });
+
+  // EDIT
+  app.put('/api/tasks/:id', (req, res) => {
+    const task = req.body;
+    Task.findOne({_id: req.params.id}, function (err, task) {
+      if (err) {
+        res.status(503);
+        res.end();
+        return;
+      }
+      task.title = req.body.title;
+      task.timeStart = req.body.timeStart
+      task.timeEnd = req.body.timeEnd;
+      task.save(function (err) {
+        if (err) {
+          console.log("Error: could not save contact " + contact.phone);
+        } else {
+          res.json(task);
+        }
+      });
+    });
+  });
+
+  //DELETE
+  app.delete('/api/tasks/:id', (req, res) => {
+    const task = req.body;
+    Task.deleteOne({_id: req.params.id}, function (err) {
+      if (err) {
+        console.log('error');
+        res.status(503);
+        res.end();
+        return;
+      }
+      console.log('ok');
+      res.end();
     });
   });
 
@@ -51,4 +92,3 @@ mongoose.connection.once('open', function () {
     console.log(`Example app listening at http://localhost:${port}`)
   });
 });
-

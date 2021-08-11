@@ -4,6 +4,10 @@
     display: flex;
     align-items: center;
     gap: 10px;
+
+    &.ng-invalid  {
+      border:solid red 2px;
+    }
   }
 
   &__time-end {
@@ -11,4 +15,8 @@
     align-items: center;
     gap: 15px;
   }
+}
+
+input.ng-invalid {
+  border:solid red 2px;
 }
